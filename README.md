@@ -35,6 +35,8 @@ Servo: This library allows for control of servomotors, which is essential for th
 
 ## Wiring Diagram
 
+![electrical](assets/electrical.png)
+
 Ultrasonic Sensor :
 
 Trigger → Pin 9 de l’Arduino
@@ -194,6 +196,8 @@ Servo : permet de contrôler les servomoteurs, ce qui est essentiel pour les mou
 
 
 ## Schéma de câblage
+
+![electrical](assets/electrical.png)
 
 Capteur Ultrason :
 
