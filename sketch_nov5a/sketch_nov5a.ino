@@ -11,7 +11,7 @@ void setup() {
   pinMode(ultrasonicTrigger, OUTPUT);
   pinMode(ultrasonicEcho, INPUT);
   servoCircle.attach(6);
-  servoCircle.write(1);
+  servoCircle.write(-1);
   servoLinear.attach(5);
   servoLinear.write(90);
 }
@@ -31,13 +31,13 @@ void loop() {
   //Serial.println(distance);
   //Serial.println(servoLinear.read());
 
-  if (distance < 10 && servoLinear.read() != 180) {
-    servoLinear.write(180);
-    servoCircle.detach();
-  } else if (distance > 10 && servoLinear.read() != -180) {
+  if (distance < 10 && servoLinear.read() != -180) {
     servoLinear.write(-180);
+    servoCircle.detach();
+  } else if (distance > 10 && servoLinear.read() != 180) {
+    servoLinear.write(180);
     servoCircle.attach(6);
-    servoCircle.write(1);
+    servoCircle.write(-1);
   }
 
   delay(100);

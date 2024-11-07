@@ -2,13 +2,13 @@
 
 ![Exemple d'image](assets/plant.png)
 
-## english version 🇬🇧
+## English version 🇬🇧
 
 ## Introduction
 
 This project simulates an extraterrestrial botanical garden where the plants react to nearby movements. The concept is that when an object is detected within 10 cm by an ultrasonic sensor, the artificial plant automatically retracts. This behavior is controlled by an Arduino board and two servomotors to give the illusion of life and movement.
 
-## Composants utilisés
+## Components Used
 
 - Arduino Uno
 - Ultrasonic sensor(HC-SR04)
@@ -16,6 +16,15 @@ This project simulates an extraterrestrial botanical garden where the plants rea
 - Servo motor for linear movement
 - Connecting wires
 - Breadboard (prototype board)
+
+
+## Tools Used
+
+- Arduino IDE: Used to write, compile, and upload code to the Arduino Uno board, making program development and testing easier.
+
+- Required Libraries:
+
+Servo: This library allows for control of servomotors, which is essential for the linear and circular movements of the plant in this project. By including #include <Servo.h>, the library provides commands to adjust the position and speed of the servomotors, contributing to the plant's reactive behavior.
 
 
 ## Wiring Diagram
@@ -50,7 +59,7 @@ void setup() {
   pinMode(ultrasonicTrigger, OUTPUT);
   pinMode(ultrasonicEcho, INPUT);
   servoCircle.attach(6);
-  servoCircle.write(1);
+  servoCircle.write(-1);
   servoLinear.attach(5);
   servoLinear.write(90);
 }
@@ -59,21 +68,24 @@ void loop() {
   long duration, distance;
 
   digitalWrite(ultrasonicTrigger, LOW);  
-  delayMicroseconds(2);  
-  digitalWrite(ultrasonicTrigger, HIGH);  
-  delayMicroseconds(10);  
-  digitalWrite(ultrasonicTrigger, LOW); 
+    delayMicroseconds(2);  
+    digitalWrite(ultrasonicTrigger, HIGH);  
+    delayMicroseconds(10);  
+    digitalWrite(ultrasonicTrigger, LOW); 
 
   duration = pulseIn(ultrasonicEcho, HIGH);
   distance = microsecondsToCentimeters(duration);
 
-  if (distance < 10 && servoLinear.read() != 180) {
-    servoLinear.write(180);
-    servoCircle.detach();
-  } else if (distance > 10 && servoLinear.read() != -180) {
+  //Serial.println(distance);
+  //Serial.println(servoLinear.read());
+
+  if (distance < 10 && servoLinear.read() != -180) {
     servoLinear.write(-180);
+    servoCircle.detach();
+  } else if (distance > 10 && servoLinear.read() != 180) {
+    servoLinear.write(180);
     servoCircle.attach(6);
-    servoCircle.write(1);
+    servoCircle.write(-1);
   }
 
   delay(100);
@@ -142,6 +154,13 @@ T-shaped Arm Support:
 
 This "T" structure allows for securing the arm and supports the motor, controlling the direction and amplitude of the linear movement. The upper bar of the piece helps maintain the arm's balance while in motion.
 
+![done](assets/mecha-done.png)
+
+Additionally, we added a small paper piece to help the T-shaped part maintain its axis. Over time and with repeated rotations, we observed that the part tends to lose alignment, which is an issue we’re working to address.
+
+![helix](assets/helix2.png)
+
+
 
 ## French version 🇫🇷
 
@@ -157,6 +176,15 @@ Ce projet simule un jardin botanique extraterrestre dans lequel les plantes réa
 - Servomoteur pour mouvement linéaire
 - Fils de connexion
 - Breadboard (plaque de prototypage)
+
+## Outils utilisés
+
+- Arduino IDE : utilisé pour écrire, compiler et téléverser le code sur la carte Arduino Uno, facilitant le développement et les tests du programme.
+
+- Bibliothèques nécessaires :
+
+Servo : permet de contrôler les servomoteurs, ce qui est essentiel pour les mouvements linéaires et circulaires de la plante dans le projet. En incluant #include <Servo.h>, la bibliothèque offre des commandes pour ajuster la position et la vitesse des servomoteurs, contribuant ainsi à la réactivité de la plante.
+
 
 
 ## Schéma de câblage
@@ -190,7 +218,7 @@ void setup() {
   pinMode(ultrasonicTrigger, OUTPUT);
   pinMode(ultrasonicEcho, INPUT);
   servoCircle.attach(6);
-  servoCircle.write(1);
+  servoCircle.write(-1);
   servoLinear.attach(5);
   servoLinear.write(90);
 }
@@ -199,21 +227,24 @@ void loop() {
   long duration, distance;
 
   digitalWrite(ultrasonicTrigger, LOW);  
-  delayMicroseconds(2);  
-  digitalWrite(ultrasonicTrigger, HIGH);  
-  delayMicroseconds(10);  
-  digitalWrite(ultrasonicTrigger, LOW); 
+    delayMicroseconds(2);  
+    digitalWrite(ultrasonicTrigger, HIGH);  
+    delayMicroseconds(10);  
+    digitalWrite(ultrasonicTrigger, LOW); 
 
   duration = pulseIn(ultrasonicEcho, HIGH);
   distance = microsecondsToCentimeters(duration);
 
-  if (distance < 10 && servoLinear.read() != 180) {
-    servoLinear.write(180);
-    servoCircle.detach();
-  } else if (distance > 10 && servoLinear.read() != -180) {
+  //Serial.println(distance);
+  //Serial.println(servoLinear.read());
+
+  if (distance < 10 && servoLinear.read() != -180) {
     servoLinear.write(-180);
+    servoCircle.detach();
+  } else if (distance > 10 && servoLinear.read() != 180) {
+    servoLinear.write(180);
     servoCircle.attach(6);
-    servoCircle.write(1);
+    servoCircle.write(-1);
   }
 
   delay(100);
@@ -281,3 +312,16 @@ Bras articulé (en bas de l'image) :
 Support du bras en forme de « T » : 
 
 Cette structure en "T" permet de fixer le bras et supporte le moteur, contrôlant la direction et l’amplitude du mouvement linéaire, la barre ers le haut de la pièces sert à conserver l'équilibre du bras lorsqu'il est en mouvement
+
+![done](assets/mecha-done.png)
+
+De plus, nous avons ajouté une petite pièce en papier pour aider la pièce en forme de "T" à maintenir son axe. Au fur et à mesure des rotations, nous avons observé que la pièce a tendance à se désaxer, ce qui constitue un souci que nous cherchons à résoudre.
+
+![helix](assets/helix2.png)
+
+
+
+## link to the powerpoint presentation
+
+https://www.canva.com/design/DAGVy8p-f7k/eEpWMHlNS9noL6AoSR2WYA/edit?utm_content=DAGVy8p-f7k&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
