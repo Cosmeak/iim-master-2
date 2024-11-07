@@ -20,16 +20,16 @@ void loop() {
   long duration, distance;
 
   digitalWrite(ultrasonicTrigger, LOW);  
-	delayMicroseconds(2);  
-	digitalWrite(ultrasonicTrigger, HIGH);  
-	delayMicroseconds(10);  
-	digitalWrite(ultrasonicTrigger, LOW); 
+    delayMicroseconds(2);  
+    digitalWrite(ultrasonicTrigger, HIGH);  
+    delayMicroseconds(10);  
+    digitalWrite(ultrasonicTrigger, LOW); 
 
   duration = pulseIn(ultrasonicEcho, HIGH);
   distance = microsecondsToCentimeters(duration);
 
-  Serial.println(distance);
-  Serial.println(servoLinear.read());
+  //Serial.println(distance);
+  //Serial.println(servoLinear.read());
 
   if (distance < 10 && servoLinear.read() != 180) {
     servoLinear.write(180);
