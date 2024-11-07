@@ -107,7 +107,7 @@ long microsecondsToCentimeters(long microseconds) {
 
 1. Setup :
 
-- The ```setup()``` function configures the pins of the ultrasonic sensor for distance detection: ````ultrasonicTrigger``` as output to send signals and ultrasonicEcho as input to receive returning echoes.
+- The ```setup()``` function configures the pins of the ultrasonic sensor for distance detection: ``` ultrasonicTrigger``` as output to send signals and ultrasonicEcho as input to receive returning echoes.
 
 - Motors are also initialized :
     . The circular motor (servoCircle), connected to pin 6, is configured with a low speed to simulate a gentle, continuous movement of the plant when it is at rest.
