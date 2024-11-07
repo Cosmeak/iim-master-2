@@ -324,4 +324,3 @@ De plus, nous avons ajouté une petite pièce en papier pour aider la pièce en 
 ## link to the powerpoint presentation
 
 https://www.canva.com/design/DAGVy8p-f7k/eEpWMHlNS9noL6AoSR2WYA/edit?utm_content=DAGVy8p-f7k&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
-
