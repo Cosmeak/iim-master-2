@@ -319,7 +319,7 @@ Support de Stabilisation  (en bas de l'image) :
 
  Cette pièce sert de support pour guider le mouvement linéaire de la plante. Elle est placée entre les autres éléments pour maintenir l'alignement et la stabilité lors des mouvements de rétraction et de déploiement. Sa conception intègre des points de fixation pour assurer un positionnement précis et réduire les déviations pendant le fonctionnement
 
-Support du bras en forme de « T » (à droite de l'image): 
+Support en forme de « T » (à droite de l'image): 
 
 Cette structure en "T" permet de fixer le mechanisme, contrôlant la direction et l’amplitude du mouvement linéaire, la barre ers le haut de la pièces sert à conserver l'équilibre  lorsque le mecanisme  est en mouvement
 
