@@ -1,6 +1,12 @@
-# A5 Futur tech deign
+# A5 Futur tech design
 
 ![Exemple d'image](assets/shy.png)
+
+#### The Helicoradian
+" The shy plant that retracts when you approach "
+
+# Technical documentation : 
+
 
 ## English version 🇬🇧
 
