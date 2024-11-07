@@ -1,6 +1,6 @@
 # A5 Futur tech deign
 
-![Exemple d'image](assets/plant.png)
+![Exemple d'image](assets/shy.png)
 
 ## English version 🇬🇧
 
