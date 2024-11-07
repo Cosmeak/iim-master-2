@@ -39,8 +39,8 @@ Servo: This library allows for control of servomotors, which is essential for th
 
 Ultrasonic Sensor :
 
-Trigger → Pin 9 de l’Arduino
-Echo → Pin 8 de l’Arduino
+Trigger → Pin 9 on the Arduino
+Echo → Pin 8 on the Arduino
 
 Motors :
 
