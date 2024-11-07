@@ -154,13 +154,13 @@ Circular Piece (top left) :
 
  This piece is the base attached to the servomotor to create circular motion. 
 
-Articulated Arm (bottom of the image):
+Stabilization Support (bottom of the image):
 
-This arm is connected to the linear motor to perform the retraction and extension of the plant. It consists of multiple sections for ease of movement and includes attachment points.
+This piece serves as a support to guide the linear movement of the plant. It is positioned between the other elements to maintain alignment and stability during retraction and deployment movements. Its design includes attachment points to ensure precise positioning and reduce deviations during operation.
 
-T-shaped Arm Support:
+T-shaped Arm Support (right of the image):
 
-This "T" structure allows for securing the arm and supports the motor, controlling the direction and amplitude of the linear movement. The upper bar of the piece helps maintain the arm's balance while in motion.
+This "T" structure secures the arm and supports the motor, controlling the direction and amplitude of the linear movement. The bar at the top of the piece helps maintain balance when the mechanism is in motion.
 
 ![done](assets/mecha-done.png)
 
@@ -315,13 +315,13 @@ Pièce circulaire (en haut à gauche) :
 
  Cette pièce est la base qui s'attache au servomoteur pour créer le mouvement circulaire. 
 
-Bras articulé (en bas de l'image) :
+Support de Stabilisation  (en bas de l'image) :
 
- Ce bras est relié au moteur linéaire pour effectuer la rétraction et le déploiement de la plante. Il est composé de plusieurs sections pour faciliter le mouvement et intègre des points de fixation.
+ Cette pièce sert de support pour guider le mouvement linéaire de la plante. Elle est placée entre les autres éléments pour maintenir l'alignement et la stabilité lors des mouvements de rétraction et de déploiement. Sa conception intègre des points de fixation pour assurer un positionnement précis et réduire les déviations pendant le fonctionnement
 
-Support du bras en forme de « T » : 
+Support du bras en forme de « T » (à droite de l'image): 
 
-Cette structure en "T" permet de fixer le bras et supporte le moteur, contrôlant la direction et l’amplitude du mouvement linéaire, la barre ers le haut de la pièces sert à conserver l'équilibre du bras lorsqu'il est en mouvement
+Cette structure en "T" permet de fixer le bras et supporte le moteur, contrôlant la direction et l’amplitude du mouvement linéaire, la barre ers le haut de la pièces sert à conserver l'équilibre  lorsque le mecanisme  est en mouvement
 
 ![done](assets/mecha-done.png)
 
