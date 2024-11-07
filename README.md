@@ -158,9 +158,9 @@ Stabilization Support (bottom of the image):
 
 This piece serves as a support to guide the linear movement of the plant. It is positioned between the other elements to maintain alignment and stability during retraction and deployment movements. Its design includes attachment points to ensure precise positioning and reduce deviations during operation.
 
-T-shaped Arm Support (right of the image):
+T-shaped  Support (right of the image):
 
-This "T" structure secures the arm and supports the motor, controlling the direction and amplitude of the linear movement. The bar at the top of the piece helps maintain balance when the mechanism is in motion.
+This "T" structure secures the mechanism, controlling the direction and amplitude of the linear movement. The bar at the top of the piece helps maintain balance when the mechanism is in motion.
 
 ![done](assets/mecha-done.png)
 
@@ -321,7 +321,7 @@ Support de Stabilisation  (en bas de l'image) :
 
 Support du bras en forme de « T » (à droite de l'image): 
 
-Cette structure en "T" permet de fixer le bras et supporte le moteur, contrôlant la direction et l’amplitude du mouvement linéaire, la barre ers le haut de la pièces sert à conserver l'équilibre  lorsque le mecanisme  est en mouvement
+Cette structure en "T" permet de fixer le mechanisme, contrôlant la direction et l’amplitude du mouvement linéaire, la barre ers le haut de la pièces sert à conserver l'équilibre  lorsque le mecanisme  est en mouvement
 
 ![done](assets/mecha-done.png)
 
