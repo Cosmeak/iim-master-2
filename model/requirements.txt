@@ -3,3 +3,4 @@ torchvision
 onnx
 lightning
 tensorboard
+torchmetrics
