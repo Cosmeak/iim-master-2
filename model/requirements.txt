@@ -4,3 +4,5 @@ onnx
 lightning
 tensorboard
 torchmetrics
+matplotlib
+numpy 
