@@ -1,8 +1,2 @@
-torch
-torchvision
-onnx
+# Only package non-available inside nixpgks
 lightning
-tensorboard
-torchmetrics
-matplotlib
-numpy 
