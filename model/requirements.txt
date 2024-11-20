@@ -1,2 +1,0 @@
-# Only package non-available inside nixpgks
-lightning
