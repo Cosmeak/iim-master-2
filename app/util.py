@@ -9,7 +9,8 @@ model = torch.jit.load("./model/model.pt")
 def transform_image(image_bytes):
     transformation = transforms.Compose([
         transforms.Resize(28), 
-        transforms.CenterCrop([28, 28]),
+        transforms.CenterCrop(28),
+        transforms.Grayscale(num_output_channels=1),
         transforms.ToTensor()
     ])
     return transformation(Image.open(io.BytesIO(image_bytes))).unsqueeze(0)
