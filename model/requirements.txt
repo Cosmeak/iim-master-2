@@ -1,6 +1,5 @@
 torch
 torchvision
-onnx
 lightning
 tensorboard
 torchmetrics
