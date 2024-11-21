@@ -1,7 +1,5 @@
 torch
-torchvision
-lightning
-tensorboard
 torchmetrics
-matplotlib
-nump
+torchvision
+tensorboard
+lightning[pytorch-extra]
