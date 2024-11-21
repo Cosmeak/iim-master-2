@@ -1,0 +1,8 @@
+torch
+torchvision
+onnx
+lightning
+tensorboard
+torchmetrics
+matplotlib
+nump

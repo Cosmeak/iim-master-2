@@ -10,7 +10,7 @@
 
       devShells = forAllSystems (system: 
         let 
-          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+          pkgs = import nixpkgs { inherit system; config.allowUnfree = true;  };
           pythonPackages = pkgs.python311Packages;
         in
           {
@@ -33,11 +33,9 @@
               # Project dependencies
               pythonPackages.torch
               pythonPackages.torchvision
-              pythonPackages.onnx
               pythonPackages.tensorboard
               pythonPackages.torchmetrics
               pythonPackages.matplotlib
-              pythonPackages.numpy 
               pythonPackages.pytorch-lightning
             ];
             postVenvCreation = ''
