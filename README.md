@@ -31,7 +31,7 @@ The web part of this project don't need to shine, just to be functional. This is
 
 Since i'm using Nix as my package manager, this project is also managed by it.
 
-So you can retrieve a `flake.nix` containing all information needed to have a functional installation for this project using only. 
+So you can retrieve a `flake.nix` containing all information needed to have a functional installation for this project. 
 
 ### Prerequisites
 
