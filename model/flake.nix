@@ -22,8 +22,6 @@
               pythonPackages.pip
               pythonPackages.venvShellHook
 
-              pkgs.cudatoolkit
-
               # Jupyter Notebook needed dependencies
               pkgs.stdenv.cc.cc.lib
               pythonPackages.ipykernel
@@ -44,8 +42,7 @@
             '';
             postShellHook = ''
               unset SOURCE_DATE_EPOCH
-              export CUDA_PATH=${pkgs.cudatoolkit}
-              echo $CUDA_PATH
+              python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
               jupyter server
             '';
           });
