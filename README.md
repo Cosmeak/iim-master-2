@@ -1,4 +1,4 @@
-> [!DANGER] This project is an experimental machine learning model with an web API integration as part of a course i had.
+> [!CAUTION] This project is an experimental machine learning model with an web API integration as part of a course i had.
 
 ## Features
 
