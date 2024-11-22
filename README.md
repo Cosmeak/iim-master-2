@@ -20,6 +20,8 @@ This model is trained using the MNIST dataset and used the VGG pattern adapted t
 
 The web part of this project don't need to shine, just to be functional. This is why we export a API route for prediction and use it in the default web page.
 
+![](/docs/webapp-screenshot.png)
+
 ### Stack
 
 - Flask
