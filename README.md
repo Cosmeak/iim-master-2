@@ -11,6 +11,13 @@
 
 This model is trained using the MNIST dataset and used the VGG pattern adapted to the MNIST image size (28*28).
 
+![](/docs/test_acc.png)
+![](/docs/test_loss.png)
+![](/docs/train_loss_epoch.png)
+![](/docs/train_loss_step.png)
+![](/docs/val_acc.png)
+![](/docs/val_loss.png)
+
 ### Stack
 
 - Pytorch Lightning
