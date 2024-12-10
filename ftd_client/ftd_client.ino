@@ -19,13 +19,24 @@ void loop() {
     connectToWifi();
   }
 
-  // Read button state
+  // Check if packet is received and parse it if exists
+  int packetSize = udp.parsePacket();
+  if (packetSize) {
+    Serial.println("A message is received.");
+    int len = udp.read(packetBuffer, 255);
+    if (len > 0) packetBuffer[len - 1] = 0;
+    Serial.print(packetBuffer);
+    Serial.println("\n");   
+  }
+
+  // Read button state and send message to server
   int bstate = digitalRead(bpin); 
   if (bstate == LOW && isFirstMessage) {
     sendMessage((char*) "message");
   } else if (bstate == LOW && !isFirstMessage) {
     sendMessage((char*) &selfIndex);
   }
+
 
   delay(100);
 }
@@ -61,8 +72,4 @@ void sendMessage(char *message) {
   Client.write(message);
   Client.write("\r\n");
   Client.endPacket();
-}
-
-void receiveMessage() {
-  // TODO: Handle message from server with UDP protocol
 }
