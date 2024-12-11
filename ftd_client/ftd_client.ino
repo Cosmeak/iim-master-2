@@ -9,8 +9,7 @@ uint8_t selfIndex = 1; // Identifier on the server
 
 void setup() {
   Serial.begin(115200);            
-  pinMode(bpin, INPUT_PULLUP); 
-
+  pinMode(bpin, INPUT_PULLUP);
 }
 
 void loop() {
@@ -36,7 +35,6 @@ void loop() {
   } else if (bstate == LOW && !isFirstMessage) {
     sendMessage((char*) &selfIndex);
   }
-
 
   delay(100);
 }
