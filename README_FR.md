@@ -145,6 +145,10 @@ Initialise deux autres servos moteurs :
 
 ## Mechanisme de fonctionnement du circuit :
 
+photo du montage final :
+
+![circuit](assets/circuit.jpeg)
+
 ***Ouverture de la porte*** : 
 La porte bascule grâce à un servomoteur, permettant à la bille de commencer son parcours.
 
