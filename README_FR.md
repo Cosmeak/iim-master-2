@@ -13,7 +13,7 @@ Chaque étape du mécanisme déclenche la suivante, illustrant un processus comp
 - Éléments mécaniques : Ils traduisent les actions des ESP8266 en mouvements physiques.
 -  Capteur à ultrasons (HC-SR04)
 - Servomoteur
-- haut parleur 
+- haut parleur (buzzer connecté)
 - Chemins en pailles : Guident les billes entre les étapes.
 - Bille en métal : Élément déclencheur principal.
 
@@ -148,7 +148,9 @@ Envoie une commande au client concerné pour démarrer une nouvelle étape du ci
 
 - Connexion au serveur : L’ESP8266 client se connecte au réseau Wi-Fi du serveur.
 - Gestion des messages : Le client reçoit des messages du serveur pour lancer une action ou signaler une erreur.
-- Exécution des actions : Le client contrôle un servo moteur (de la porte) pour gérer la bille et attend les événements liés au circuit.
+- Exécution des actions :
+  - Le client contrôle un servo moteur (porte) pour gérer la bille.
+  - Utilise des capteurs ultrasoniques pour détecter la bille et déclencher d’autres actions, comme jouer de la musique ou allumer une LED.
 
 code :
 
@@ -158,113 +160,164 @@ code :
 #include <Servo.h>
 
 const int bpin = 5; 
-Servo door;
+const int musicSensors[3][2] = {
+  { 2, 0 }, 
+  { 12, 13 }, 
+};
 
 WiFiUDP Client;
-bool isFirstMessage = true;
-uint8_t selfIndex = 1; 
+bool isFirstMessage = true;  
+uint8_t selfIndex = 1;       
 char packetBuffer[255];
 
-bool ballCanGo = true;
+Servo door;
+bool ballCanGo = true;  
 
 void setup() {
-  Serial.begin(115200);            
+  Serial.begin(115200);
   pinMode(bpin, INPUT_PULLUP);
-  door.attach(4);
+  door.attach(4); 
+  for (auto& sensorPin : musicSensors) {
+    pinMode(sensorPin[0], OUTPUT);
+    pinMode(sensorPin[1], INPUT);
+  }
 }
 
 void loop() {
+  if (!WiFi.isConnected()) {
+    connectToWifi();
+  }
+
   int packetSize = Client.parsePacket();
   if (packetSize) {
     Serial.println("A message is received.");
     int len = Client.read(packetBuffer, 255);
     if (len > 0) {
       if (packetBuffer[0] == 1 && !ballCanGo) ballCanGo = true;
-      if (packetBuffer[0] == 0) { }
+      if (packetBuffer[0] == 0) {}  
     };
     Serial.print(packetBuffer);
-    Serial.println("\n");   
+    Serial.println("\n");
   }
 
-  int bstate = digitalRead(bpin); 
-  if (bstate == LOW && isFirstMessage) {
-    sendMessage((char*) &selfIndex);
-  } else if (bstate == LOW && !isFirstMessage && ballCanGo) {
-    sendMessage((char*) 1);
-  }
+  int bstate = digitalRead(bpin);
+  if (bstate == LOW && !isFirstMessage && ballCanGo) sendMessage((char*)1);
 
   if (ballCanGo) {
-    door.write(8);
-    delay(800);
-    door.write(180);
-    delay(800);
-    door.detach();
-    ballCanGo = false;
-  }
+    if (door.attached()) {
+      door.write(8);
+      delay(800);
+      door.write(180);
+      delay(800);
+      door.detach();
+    }
 
-  delay(5000);
+    int index = 0;
+    for (auto& sensorPin : musicSensors) {
+      digitalWrite(sensorPin[0], LOW);
+      delay(10);
+      digitalWrite(sensorPin[0], HIGH);
+      delay(10);
+      digitalWrite(sensorPin[0], LOW);
+
+      long duration = pulseIn(sensorPin[1], HIGH);
+      long distance = microsecondsToCentimeters(duration);
+      if (distance < 10) {
+        if (index == 0) playMusic();
+        if (index == 1) {}  
+      }
+      index++;
+    }
+  }
+  delay(500);
 }
 
 void connectToWifi() {
   const char* ssid = "ESPsoftAP_01";
   const char* password = "ESP-WIFI-PW";
 
-  WiFi.begin(ssid, password); 
+  WiFi.begin(ssid, password);
   Serial.print("Connecting to ");
-  Serial.print(ssid); Serial.println(" ...");
+  Serial.print(ssid);
+  Serial.println(" ...");
 
   int i = 0;
-  while (WiFi.status() != WL_CONNECTED) { 
+  while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
-    Serial.println(++i); 
+    Serial.println(++i);
   }
 
   Serial.println('\n');
-  Serial.println("Connection established!");  
+  Serial.println("Connection established!");
   Serial.print("IP address:\t");
   Serial.println(WiFi.localIP());
+
+  if (isFirstMessage) sendMessage((char*)&selfIndex);
 }
 
-void sendMessage(char *message) {
+void sendMessage(char* message) {
   int udpPort = 9999;
   Client.begin(udpPort);
-  Serial.print(F("UDP Client : ")); Serial.println(WiFi.localIP());
+  Serial.print(F("UDP Client : "));
+  Serial.println(WiFi.localIP());
 
   Client.beginPacket("192.168.4.1", udpPort);
-  Serial.print("Sent : "); Serial.println(message);
+  Serial.print("Sent : ");
+  Serial.println(message);
 
   Client.write(message);
   Client.write("\r\n");
   Client.endPacket();
+}
+
+long microsecondsToCentimeters(long microseconds) {
+  return (microseconds / 2) / 29.1;
+}
+
+void playMusic() {
+  int notes = sizeof(melody) / sizeof(melody[0]) / 2;
+  int wholenote = (60000 * 4) / tempo;
+  int divider = 0, noteDuration = 0;
+
+  for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
+    divider = pgm_read_word_near(melody + thisNote + 1);
+    if (divider > 0) {
+      noteDuration = (wholenote) / divider;
+    } else if (divider < 0) {
+      noteDuration = (wholenote) / abs(divider);
+      noteDuration *= 1.5;
+    }
+    tone(buzzer, pgm_read_word_near(melody + thisNote), noteDuration * 0.9);
+    delay(noteDuration);
+    noTone(buzzer);
+  }
 }
 ```
 
 #### Explication des fonctions principales :
 
 ```setup()``` :
-- Configure l'ESP8266 client.
-- Initialise le servo moteur (door) attaché à la broche GPIO4 (D2).
-- Prépare le port UDP pour la communication.
+- Configure le client ESP8266.
+- Initialise le servo moteur attaché à GPIO4 (D2).
+- Configure les capteurs ultrasoniques pour détecter la bille.
 
 ```loop()``` :
 - Vérifie les messages reçus via UDP :
-  - Si le message indique que le circuit peut être lancé (packetBuffer[0] == 1), active ballCanGo.
-  - Gère les erreurs si un message de type erreur (packetBuffer[0] == 0) est reçu.
+  - Active ```ballCanGo``` si le message reçu est valide.
+- Lit l'état du bouton :
+    - Envoie un message au serveur si le bouton est pressé.
+- Contrôle les événements du circuit :
+  - Ouvre/ferme la porte avec le servo moteur.
+  - Utilise les capteurs ultrasoniques pour détecter la bille et déclencher des actions comme jouer une musique.
 
-- Lit l'état du bouton connecté à GPIO5 (D1) :
-  - Envoie un message d’identification si c’est le premier message (```isFirstMessage```).
-  - Envoie un signal de lancement du circuit si tout est prêt (```ballCanGo```).
-
-- Si ```ballCanGo``` est actif :
-  - Contrôle le servo moteur pour ouvrir et fermer une porte, permettant à la bille de passer.
-  - Désactive ballCanGo pour éviter des répétitions non voulues.
-  
 ```connectToWifi()``` :
-- Connecte le client ESP8266 au réseau Wi-Fi du serveur.
+- Connecte le client au réseau Wi-Fi et envoie un message d’identification.
 
 ```sendMessage()``` :
-- Envoie un message UDP au serveur pour indiquer un état ou déclencher une action.
+- Envoie des messages UDP au serveur.
 
+```playMusic()``` :
+- Joue une mélodie de Noël en utilisant un buzzer connecté.
 
 ## Mechanisme de fonctionnement du circuit :
 
