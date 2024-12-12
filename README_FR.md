@@ -10,12 +10,13 @@ Chaque étape du mécanisme déclenche la suivante, illustrant un processus comp
 ## Composants utilisés
 
 - ESP8266 : Un pour le serveur, et plusieurs pour les potentiels clients.
+- Bille en métal : Élément déclencheur principal.
+- Chemins en pailles : Guident les billes entre les étapes.
 - Éléments mécaniques : Ils traduisent les actions des ESP8266 en mouvements physiques.
 -  Capteur à ultrasons (HC-SR04)
 - Servomoteur
+- Plaque métallique : Utilisée pour détecter la bille et déclencher le buzzer.
 - haut parleur (buzzer connecté)
-- Chemins en pailles : Guident les billes entre les étapes.
-- Bille en métal : Élément déclencheur principal.
 
 ## Schéma de câblage
 
@@ -297,33 +298,53 @@ void playMusic() {
 #### Explication des fonctions principales :
 
 ```setup()``` :
-- Configure le client ESP8266.
-- Initialise le servo moteur attaché à GPIO4 (D2).
-- Configure les capteurs ultrasoniques pour détecter la bille.
+- Configure l'ESP8266 client.
+- Initialise le servomoteur attaché à GPIO4 (D2) pour ouvrir et fermer la porte.
+- Configure les capteurs ultrasoniques connectés (GPIO2, GPIO12, etc.) pour détecter la bille.
+- Configure le bouton connecté à GPIO5 (D1) pour surveiller son état, afin de déterminer la progression dans le circuit.
 
 ```loop()``` :
-- Vérifie les messages reçus via UDP :
-  - Active ```ballCanGo``` si le message reçu est valide.
-- Lit l'état du bouton :
-    - Envoie un message au serveur si le bouton est pressé.
-- Contrôle les événements du circuit :
-  - Ouvre/ferme la porte avec le servo moteur.
-  - Utilise les capteurs ultrasoniques pour détecter la bille et déclencher des actions comme jouer une musique.
+***```Vérifie les messages UDP```***:
+- Si un message valide est reçu du serveur (valeur de packetBuffer[0] == 1), active ballCanGo, permettant de déclencher les événements du circuit.
+- Gère les messages d’erreur (placeholder pour packetBuffer[0] == 0).
+***```Lit l'état du bouton```*** :
+- Si le bouton est pressé (bstate == LOW), envoie un message au serveur pour signaler la progression du circuit.
+***```Contrôle les événements du circuit```*** :
+- Si ballCanGo est actif :
+  - Ouvre et ferme la porte avec le servomoteur.
+  - Utilise les capteurs ultrasoniques pour détecter la bille :
+    - Si la bille est détectée à une distance inférieure à 10 cm, déclenche des actions spécifiques comme jouer une mélodie via le buzzer.
 
 ```connectToWifi()``` :
-- Connecte le client au réseau Wi-Fi et envoie un message d’identification.
+- Connecte le client ESP8266 au réseau Wi-Fi configuré.
+- Envoie un message d’identification au serveur après une connexion réussie.
 
 ```sendMessage()``` :
-- Envoie des messages UDP au serveur.
+- Envoie des messages UDP au serveur pour signaler un état ou une progression dans le circuit.
 
 ```playMusic()``` :
-- Joue une mélodie de Noël en utilisant un buzzer connecté.
+- Joue une mélodie de Noël avec un buzzer connecté.
+- Chaque note correspond à une fréquence précise, définie dans le tableau ```melody``` du code.
 
 ## Mechanisme de fonctionnement du circuit :
 
-- la porte bascule pour laisser passer la bille
-- la bille se déplace dans le circuit en passant par les pailles
-- la bille tombe dans un récipient , qui fait office de frein 
-- la bille passe ensuite dans un gobelet qui bascule lorsque la bille passe dedans
-- la bille tombe das une partie métallique en pente, fait un virage vers un chemin de paille 
-- la bille arrive à une plaque de métallique, la bille étant en métal, elle est conductrice, elle ferme le circuit et déclancer le haut parleur (buzzer connecté) configuré pour émettre un son de noël, chaque note correspond à une fréquence comme on l'a vu dans le code ci-dessus.
+**Ouverture de la porte** :
+La porte bascule grâce à un servomoteur, permettant à la bille de commencer son parcours.
+
+**Déplacement dans le circuit** :
+La bille se déplace à travers un chemin constitué de pailles, guidée par la pente du circuit.
+
+**Freinage dans un récipient** :
+La bille tombe dans un récipient qui agit comme un frein temporaire, ralentissant sa vitesse.
+
+**Activation du gobelet basculant** :
+La bille passe dans un gobelet conçu pour basculer lorsqu'elle y entre, libérant ainsi la bille vers la prochaine étape.
+
+**Passage sur une pente métallique** :
+La bille continue son chemin sur une pente métallique en réalisant un virage pour rejoindre un nouveau segment de pailles.
+
+**Détection sur une plaque métallique** :
+La bille arrive sur une plaque métallique, où elle poursuit son chemin jusqu'à activer un bouton connecté. Lorsque la bille appuie sur ce bouton, cela déclenche :
+
+- Déclenche une fonction signalant que le circuit est fermé.
+- Active un buzzer configuré pour jouer une mélodie de Noël. Chaque note de cette mélodie correspond à une fréquence, comme défini dans le code.
