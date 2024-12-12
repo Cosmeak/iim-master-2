@@ -11,6 +11,9 @@ Chaque étape du mécanisme déclenche la suivante, illustrant un processus comp
 
 - ESP8266 : Un pour le serveur, et plusieurs pour les potentiels clients.
 - Éléments mécaniques : Ils traduisent les actions des ESP8266 en mouvements physiques.
+-  Capteur à ultrasons (HC-SR04)
+- Servomoteur
+- haut parleur 
 - Chemins en pailles : Guident les billes entre les étapes.
 - Bille en métal : Élément déclencheur principal.
 
@@ -140,53 +143,92 @@ Envoie une commande au client concerné pour démarrer une nouvelle étape du ci
 #### Résumé :
 
 - Connexion au serveur : L’ESP8266 client se connecte au réseau Wi-Fi du serveur.
-- Exécution des actions : Il attend un signal pour déclencher une action mécanique (moteur, led, enceinte, etc.)
+- Gestion des messages : Le client reçoit des messages du serveur pour lancer une action ou signaler une erreur.
+- Exécution des actions : Le client contrôle un servo moteur (de la porte) pour gérer la bille et attend les événements liés au circuit.
 
 code :
 
 ```c
 #include <ESP8266WiFi.h>
 #include <WiFiUDP.h>
+#include <Servo.h>
 
-const int bpin = 5;
+const int bpin = 5; 
+Servo door;
+
 WiFiUDP Client;
 bool isFirstMessage = true;
-uint8_t selfIndex = 1;
+uint8_t selfIndex = 1; 
+char packetBuffer[255];
+
+bool ballCanGo = true;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);            
   pinMode(bpin, INPUT_PULLUP);
+  door.attach(4);
 }
 
 void loop() {
-  if (WiFi.isConnected()) connectToWifi();
-
-  int packetSize = udp.parsePacket();
+  int packetSize = Client.parsePacket();
   if (packetSize) {
-    int len = udp.read(packetBuffer, 255);
-    if (len > 0) packetBuffer[len - 1] = 0;
+    Serial.println("A message is received.");
+    int len = Client.read(packetBuffer, 255);
+    if (len > 0) {
+      if (packetBuffer[0] == 1 && !ballCanGo) ballCanGo = true;
+      if (packetBuffer[0] == 0) { }
+    };
     Serial.print(packetBuffer);
+    Serial.println("\n");   
   }
 
-  int bstate = digitalRead(bpin);
-  if (bstate == LOW && isFirstMessage) sendMessage((char*) "message");
-  else if (bstate == LOW && !isFirstMessage) sendMessage((char*) &selfIndex);
+  int bstate = digitalRead(bpin); 
+  if (bstate == LOW && isFirstMessage) {
+    sendMessage((char*) &selfIndex);
+  } else if (bstate == LOW && !isFirstMessage && ballCanGo) {
+    sendMessage((char*) 1);
+  }
 
-  delay(100);
+  if (ballCanGo) {
+    door.write(8);
+    delay(800);
+    door.write(180);
+    delay(800);
+    door.detach();
+    ballCanGo = false;
+  }
+
+  delay(5000);
 }
 
 void connectToWifi() {
   const char* ssid = "ESPsoftAP_01";
   const char* password = "ESP-WIFI-PW";
 
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) delay(1000);
+  WiFi.begin(ssid, password); 
+  Serial.print("Connecting to ");
+  Serial.print(ssid); Serial.println(" ...");
+
+  int i = 0;
+  while (WiFi.status() != WL_CONNECTED) { 
+    delay(1000);
+    Serial.println(++i); 
+  }
+
+  Serial.println('\n');
+  Serial.println("Connection established!");  
+  Serial.print("IP address:\t");
+  Serial.println(WiFi.localIP());
 }
 
 void sendMessage(char *message) {
   int udpPort = 9999;
   Client.begin(udpPort);
+  Serial.print(F("UDP Client : ")); Serial.println(WiFi.localIP());
+
   Client.beginPacket("192.168.4.1", udpPort);
+  Serial.print("Sent : "); Serial.println(message);
+
   Client.write(message);
   Client.write("\r\n");
   Client.endPacket();
@@ -195,20 +237,30 @@ void sendMessage(char *message) {
 
 #### Explication des fonctions principales :
 
-`setup()`:
+```setup()``` :
+- Configure l'ESP8266 client.
+- Initialise le servo moteur (door) attaché à la broche GPIO4 (D2).
+- Prépare le port UDP pour la communication.
 
-Configure le client ESP8266 et prépare le port UDP pour la communication.
+```loop()``` :
+- Vérifie les messages reçus via UDP :
+  - Si le message indique que le circuit peut être lancé (packetBuffer[0] == 1), active ballCanGo.
+  - Gère les erreurs si un message de type erreur (packetBuffer[0] == 0) est reçu.
 
-`loop()`:
+- Lit l'état du bouton connecté à GPIO5 (D1) :
+  - Envoie un message d’identification si c’est le premier message (```isFirstMessage```).
+  - Envoie un signal de lancement du circuit si tout est prêt (```ballCanGo```).
 
-Vérifie l'arrivée de messages UDP.
+- Si ```ballCanGo``` est actif :
+  - Contrôle le servo moteur pour ouvrir et fermer une porte, permettant à la bille de passer.
+  - Désactive ballCanGo pour éviter des répétitions non voulues.
+  
+```connectToWifi()``` :
+- Connecte le client ESP8266 au réseau Wi-Fi du serveur.
 
-Lit l'état du bouton pour envoyer un message au serveur et participer à la chaîne d'actions.
+```sendMessage()``` :
+- Envoie un message UDP au serveur pour indiquer un état ou déclencher une action.
 
-`connectToWifi()`:
 
-Connecte le client ESP8266 au réseau Wi-Fi du serveur.
+### Mechanisme de fonctionnement du mechanisme
 
-`sendMessage()`:
-
-Envoie un message UDP au serveur pour indiquer un état ou déclencher une action.
