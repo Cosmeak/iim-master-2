@@ -19,6 +19,10 @@ Chaque étape du mécanisme déclenche la suivante, illustrant un processus comp
 
 ## Schéma de câblage
 
+une esp8266 se présente comme ceci au début:
+
+![esp_shema](assets/esp-schema.png)
+
 #### ESP8266 Serveur :
 
 #### ESP8266 Clients :
@@ -262,5 +266,11 @@ void sendMessage(char *message) {
 - Envoie un message UDP au serveur pour indiquer un état ou déclencher une action.
 
 
-### Mechanisme de fonctionnement du mechanisme
+## Mechanisme de fonctionnement du circuit :
 
+- la porte bascule pour laisser passer la bille
+- la bille se déplace dans le circuit en passant par les pailles
+- la bille tombe dans un récipient , qui fait office de frein 
+- la bille passe ensuite dans un gobelet qui bascule lorsque la bille passe dedans
+- la bille tombe das une partie métallique en pente, fait un virage vers un chemin de paille 
+- la bille arrive à une plaque de métallique, la bille étant en métal, elle est conductrice, elle ferme le circuit et déclancer le haut parleur configuré pour émettre un son de noël, chaque note correspond à une fréquence comme on l'a vu dans le code ci-dessus.
