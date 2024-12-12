@@ -19,12 +19,17 @@ char packetBuffer[255];
 
 // Others
 Servo door;
-bool ballCanGo = true;  // Used to know if we can launch the circuit
+Servo heliup;
+Servo helispin;
+bool ballCanGo = false;  // Used to know if we can launch the circuit
+bool musicTaskIsRunning = false;
 
 void setup() {
   Serial.begin(115200);
   pinMode(bpin, INPUT_PULLUP);
   door.attach(4);  // GPIO4 (D2)
+  helispin.attach(14);  // GPIO4 (D5)
+  heliup.attach(16);  // GPIO4 (D0)
   // Set input mode for all ultrasound sensors
   for (auto& sensorPin : musicSensors) {
     pinMode(sensorPin[0], OUTPUT);
@@ -61,6 +66,8 @@ void loop() {
   if (ballCanGo) {
     // Open the door and close it before detach
     if (door.attached()) {
+      Serial.println("Can go!");
+      Serial.println("Open the door.");
       door.write(8);
       delay(800);
       door.write(180);
@@ -80,15 +87,22 @@ void loop() {
       long duration = pulseIn(sensorPin[1], HIGH);
       long distance = microsecondsToCentimeters(duration);
       if (distance < 10) {
-        // Play a sound
-        if (index == 0) playMusic();
-        if (index == 1) {}  // TODO: turn on xmas led
+        // Play a sound and make dancing helicoridian
+        if (index == 0) {
+          heliup.write(180);
+          helispin.write(8);
+          playMusic();
+        }
+        // TODO: turn on xmas led
+        else if (index == 1) {}  
       }
 
       index++;
     }
+  } else {
+    Serial.println("Waiting...");
   }
-  delay(500);
+  delay(1000);
 }
 
 void connectToWifi() {
@@ -248,9 +262,9 @@ const int melody[] PROGMEM = {
   NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
   NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,
   NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
-  NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+  NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4, NOTE_F5,2,
 
-  // NOTE_F5,2, NOTE_C5,4, //8
+  // NOTE_C5,4, //8
   // NOTE_F5,4, NOTE_F5,8, NOTE_G5,8, NOTE_F5,8, NOTE_E5,8,
   // NOTE_D5,4, NOTE_D5,4, NOTE_D5,4,
   // NOTE_G5,4, NOTE_G5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F5,8,
