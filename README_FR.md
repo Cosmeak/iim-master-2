@@ -304,12 +304,15 @@ void playMusic() {
 - Configure le bouton connecté à GPIO5 (D1) pour surveiller son état, afin de déterminer la progression dans le circuit.
 
 ```loop()``` :
-***```Vérifie les messages UDP```***:
+
+***- Vérifie les messages UDP*** :
 - Si un message valide est reçu du serveur (valeur de ```packetBuffer[0] == 1```), active ```ballCanGo```, permettant de déclencher les événements du circuit.
 - Gère les messages d’erreur (placeholder pour ```packetBuffer[0] == 0```).
-***```Lit l'état du bouton```*** :
+
+***- Lit l'état du bouton*** :
 - Si le bouton est pressé (```bstate == LOW```), envoie un message au serveur pour signaler la progression du circuit.
-***```Contrôle les événements du circuit```*** :
+
+***- Contrôle les événements du circuit*** :
 - Si ```ballCanGo``` est actif :
   - Ouvre et ferme la porte avec le servomoteur.
   - Utilise les capteurs ultrasoniques pour détecter la bille :
