@@ -326,4 +326,4 @@ void playMusic() {
 - la bille tombe dans un récipient , qui fait office de frein 
 - la bille passe ensuite dans un gobelet qui bascule lorsque la bille passe dedans
 - la bille tombe das une partie métallique en pente, fait un virage vers un chemin de paille 
-- la bille arrive à une plaque de métallique, la bille étant en métal, elle est conductrice, elle ferme le circuit et déclancer le haut parleur configuré pour émettre un son de noël, chaque note correspond à une fréquence comme on l'a vu dans le code ci-dessus.
+- la bille arrive à une plaque de métallique, la bille étant en métal, elle est conductrice, elle ferme le circuit et déclancer le haut parleur (buzzer connecté) configuré pour émettre un son de noël, chaque note correspond à une fréquence comme on l'a vu dans le code ci-dessus.
