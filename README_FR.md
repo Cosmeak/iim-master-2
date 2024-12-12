@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Ce projet simule une machine de Rube Goldberg, une chaîne de réactions mécaniques comprenant des éléments interactifs en réseau tel que des enceinte, leds, ou autre . Les microcontrôleurs ESP8266 jouent un rôle central pour coordonner certaines étapes via un réseau Wi-Fi. Chaque action si nécessaire est déclenchée en chaîne, selon un ordre géré par le serveur.
+Ce projet simule une machine de Rube Goldberg, une chaîne de réactions mécaniques comprenant des éléments interactifs en réseau tel qu'une enceinte,bouton ou autre. Les microcontrôleurs ESP8266 jouent un rôle central pour coordonner certaines étapes via un réseau Wi-Fi. Chaque action si nécessaire est déclenchée en chaîne, selon un ordre géré par le serveur.
 Chaque étape du mécanisme déclenche la suivante, illustrant un processus complexe pour accomplir une tâche simple.
 
 ## Composants utilisés
@@ -151,7 +151,7 @@ Envoie une commande au client concerné pour démarrer une nouvelle étape du ci
 - Gestion des messages : Le client reçoit des messages du serveur pour lancer une action ou signaler une erreur.
 - Exécution des actions :
   - Le client contrôle un servo moteur (porte) pour gérer la bille.
-  - Utilise des capteurs ultrasoniques pour détecter la bille et déclencher d’autres actions, comme jouer de la musique ou allumer une LED.
+  - Utilise des capteurs ultrasoniques pour détecter la bille et déclencher d’autres actions, comme jouer de la musique
 
 code :
 
