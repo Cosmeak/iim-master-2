@@ -61,8 +61,8 @@ int marbleCircuitIndex = -1;
 bool started = false;
 
 bool ledActive = false;
-bool countLedActive = true;
-uint8_t clientCounterHandle = 0;
+//bool countLedActive = true;
+//int clientCounterHandle = 0;
 
 void setup()
 {
@@ -204,22 +204,20 @@ void loop()
     ledActive = !ledActive;
     digitalWrite(pinStatusLed, ledActive);
   }
-  else if(clients.size() > 0)
-  {
-    if(clientCounterHandle >= 20)
-    {
-      countLedActive = !countLedActive;
-      digitalWrite(LED_BUILTIN, countLedActive);
-      Serial.println("BLINK");
+  //else if(clients.size() > 0)
+  //{
+  //  if(clientCounterHandle >= 20)
+  //  {
+  //    countLedActive = !countLedActive;
+  //    digitalWrite(LED_BUILTIN, countLedActive);
 
-      if((clientCounterHandle - 20) > (3 * 2))
-      {
-        clientCounterHandle = 0;
-        Serial.println("\n");
-      }
-    }
-    ++clientCounterHandle;
-  }
+  //    if((clientCounterHandle - 20) > (clients.size() * 2))
+  //    {
+  //      clientCounterHandle = 0;
+  //    }
+  //  }
+  //  ++clientCounterHandle;
+  //}
 
   delay(150);
 }

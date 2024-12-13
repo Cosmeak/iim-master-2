@@ -22,7 +22,6 @@ Servo door;
 Servo heliup;
 Servo helispin;
 bool ballCanGo = false;  // Used to know if we can launch the circuit
-bool musicTaskIsRunning = false;
 
 void setup() {
   Serial.begin(115200);
@@ -30,6 +29,7 @@ void setup() {
   door.attach(4);  // GPIO4 (D2)
   helispin.attach(14);  // GPIO4 (D5)
   heliup.attach(16);  // GPIO4 (D0)
+  heliup.write(0); // Come back to default position
   // Set input mode for all ultrasound sensors
   for (auto& sensorPin : musicSensors) {
     pinMode(sensorPin[0], OUTPUT);
@@ -60,7 +60,12 @@ void loop() {
 
   // Read button state and send to the server that the circuit is finished
   int bstate = digitalRead(bpin);
-  if (bstate == LOW && !isFirstMessage && ballCanGo) sendMessage((char*)1);
+  if (bstate == LOW && !isFirstMessage && ballCanGo) {
+    Serial.println("Ending.");
+    heliup.detach();
+    helispin.detach();
+    sendMessage((char*)1);
+  };
 
   // Handle circuit events
   if (ballCanGo) {
@@ -68,9 +73,9 @@ void loop() {
     if (door.attached()) {
       Serial.println("Can go!");
       Serial.println("Open the door.");
-      door.write(8);
-      delay(800);
       door.write(180);
+      delay(800);
+      door.write(8);
       delay(800);
       door.detach();
     }
@@ -86,7 +91,7 @@ void loop() {
 
       long duration = pulseIn(sensorPin[1], HIGH);
       long distance = microsecondsToCentimeters(duration);
-      if (distance < 10) {
+      if (distance < 1) {
         // Play a sound and make dancing helicoridian
         if (index == 0) {
           heliup.write(180);
@@ -125,7 +130,10 @@ void connectToWifi() {
   Serial.print("IP address:\t");
   Serial.println(WiFi.localIP());
 
-  if (isFirstMessage) sendMessage((char*)&selfIndex);
+  if (isFirstMessage) {
+    sendMessage((char*)&selfIndex);
+    isFirstMessage = false;
+  };
 }
 
 void sendMessage(char* message) {
