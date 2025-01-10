@@ -9,22 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Group {
-            TabView {
-                NavigationView {
-                    SearchView()
-                }.tabItem { Label("Recipes", systemImage: "list.bullet.rectangle.portrait.fill") }
-                
-                
-                NavigationView {
-                    SearchView()
-                }.tabItem { Label("This week", systemImage: "fork.knife") }
-                
-                NavigationView {
-                    SearchView()
-                }.tabItem { Label("List", systemImage: "basket.fill") }
-            }
+        TabView {
+            NavigationView {
+                SearchView()
+            }.tabItem { Label("Meals", systemImage: "list.bullet.rectangle.portrait.fill") }
+            
+            NavigationView {
+                FavoriteView()
+            }.tabItem { Label("Favorite meals", systemImage: "heart.fill") }
+            
+            NavigationView {
+                FavoriteView()
+            }.tabItem { Label("This week", systemImage: "fork.knife") }
+            
+            NavigationView {
+                ListView()
+            }.tabItem { Label("List", systemImage: "basket.fill") }
         }
+
     }
 }
 

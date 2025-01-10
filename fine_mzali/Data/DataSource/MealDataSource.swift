@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 class MealDataSource {
     static func searchMeal(searchedMeal: String) async throws -> MealResponseDTO {
         let url = URL(string: "https://www.themealdb.com/api/json/v1/1/search.php?s=\(searchedMeal)")
@@ -18,7 +16,7 @@ class MealDataSource {
     }
     
     static func lookupMeal(id: String) async throws -> MealResponseDTO {
-        let url = URL(string: "httms://www.themealdb.com/api/json/v1/1/lookup.php?i=\(id)")
+        let url = URL(string: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(id)")
         let (data, _) = try await URLSession.shared.data(from: url!)
         
         return try JSONDecoder().decode(MealResponseDTO.self, from: data)

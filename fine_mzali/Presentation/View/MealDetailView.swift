@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct RecipeDetailView: View {
+struct MealDetailView: View {
     let meal: Meal
+    @StateObject private var viewModel = MealDetailViewModel()
+    @State private var isFavorite: Bool = false
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -51,6 +53,12 @@ struct RecipeDetailView: View {
                             Text(meal.area)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+                            Button(action: {
+                                print("meal added")
+                                viewModel.addToFavorite(id: meal.id)
+                            }) {
+                                Text("Ajouter au favoris")
+                            }
                         }
                     }
                     Divider()

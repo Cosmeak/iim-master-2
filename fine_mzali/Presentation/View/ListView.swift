@@ -1,5 +1,5 @@
 //
-//  SearchView.swift
+//  ListView.swift
 //  fine_mzali
 //
 //  Created by Guillaume Fine on 10/01/2025.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct SearchView: View {
-    @StateObject private var viewModel = SearchViewModel()
+struct ListView: View {
+    @StateObject private var viewModel = MealDetailViewModel()
     
     var body: some View {
         NavigationStack {
             VStack {
-                if viewModel.meals.isEmpty {
-                    Text("No results")
+                if viewModel. {
+                    Text("No favorites")
                         .font(.system(size: 21, weight: .semibold))
                         .foregroundStyle(Color.gray)
                 } else {
@@ -30,8 +30,6 @@ struct SearchView: View {
                     }
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $viewModel.searchedMeal, prompt: "Search for a recipe...")
         }
     }
 }
