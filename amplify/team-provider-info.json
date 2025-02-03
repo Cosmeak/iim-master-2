@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bigdata-dev-af419-authRole",
+      "UnauthRoleArn": "arn:aws:iam::970547338511:role/amplify-bigdata-dev-af419-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::970547338511:role/amplify-bigdata-dev-af419-authRole",
+      "Region": "eu-west-3",
+      "DeploymentBucketName": "amplify-bigdata-dev-af419-deployment",
+      "UnauthRoleName": "amplify-bigdata-dev-af419-unauthRole",
+      "StackName": "amplify-bigdata-dev-af419",
+      "StackId": "arn:aws:cloudformation:eu-west-3:970547338511:stack/amplify-bigdata-dev-af419/314cd380-e20f-11ef-93d8-0a84c8ef3669",
+      "AmplifyAppId": "d2flw8klnapeac"
+    }
+  }
+}
