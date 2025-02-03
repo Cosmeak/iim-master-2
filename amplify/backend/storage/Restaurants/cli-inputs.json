@@ -1,0 +1,10 @@
+{
+  "resourceName": "Restaurants",
+  "tableName": "Restaurants",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

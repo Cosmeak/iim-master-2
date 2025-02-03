@@ -1,1 +1,12 @@
-{}
+{
+  "storage": {
+    "Restaurants": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "Reviews": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}

@@ -10,6 +10,12 @@
       "StackName": "amplify-bigdata-dev-af419",
       "StackId": "arn:aws:cloudformation:eu-west-3:970547338511:stack/amplify-bigdata-dev-af419/314cd380-e20f-11ef-93d8-0a84c8ef3669",
       "AmplifyAppId": "d2flw8klnapeac"
+    },
+    "categories": {
+      "storage": {
+        "Reviews": {},
+        "Restaurants": {}
+      }
     }
   }
 }
