@@ -1,5 +1,19 @@
 {
   "function": {
+    "predictFeeling": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "Restaurants"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "scrape": {
       "build": true,
       "dependsOn": [
@@ -37,10 +51,6 @@
   },
   "storage": {
     "Restaurants": {
-      "providerPlugin": "awscloudformation",
-      "service": "DynamoDB"
-    },
-    "Reviews": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

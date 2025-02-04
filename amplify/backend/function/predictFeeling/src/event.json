@@ -1,0 +1,61 @@
+[
+  {
+    "id": "3f77a4df-ccb8-4780-9b94-0327796d7491",
+    "address": "33, les vergers de la rancherem saint nom la breteche, france",
+    "comments": [
+      {
+        "comment": "This is an amazing piece of work! The attention to detail is impressive.",
+        "feeling": "positive"
+      },
+      {
+        "comment": "I think this could be improved with a bit more explanation in certain parts.",
+        "feeling": "neutral"
+      },
+      {
+        "comment": "Honestly, this seems rushed and lacks clarity. Needs significant revision.",
+        "feeling": "negative"
+      }
+    ],
+    "name": "L'Avant Comptoir",
+    "rating": 4.4,
+    "url": "https://www.yelp.com/biz/l-avant-comptoir-paris-3",
+    "yelpId": "cEjF41ZQB8-SST8cd3EsEw"
+  },
+  {
+    "id": "62e32a16-bb96-4e51-b632-4ebd35497c6a",
+    "address": "33, les vergers de la rancherem saint nom la breteche, france",
+    "comments": [],
+    "name": "Brasserie Bellanger",
+    "rating": 4.8,
+    "url": "https://www.yelp.com/biz/brasserie-bellanger-paris",
+    "yelpId": "BuJnfWI86tTxFUon071EKg"
+  },
+  {
+    "id": "1bfb9356-cf80-4f09-846f-3187e9bcd3c9",
+    "address": "",
+    "comments": [
+      {
+        "comment": "I think this could be improved with a bit more explanation in certain parts. but it's so good!!",
+        "feeling": "positive"
+      }
+    ],
+    "name": "Le Grand Réfectoire",
+    "rating": 4.7,
+    "url": "https://www.yelp.com/biz/le-grand-r%C3%A9fectoire-lyon",
+    "yelpId": "ayKDKXndnZLt0HDMGSyuFg"
+  },
+  {
+    "id": "7bc5fa5a-1d72-4450-8fe0-69a7d38a0fb5",
+    "address": "33, les vergers de la rancherem saint nom la breteche, france",
+    "comments": [
+      {
+        "comment": "This is an amazing piece of work! The attention to detail is impressive.",
+        "feeling": "positive"
+      }
+    ],
+    "name": "La Régalade",
+    "rating": 4.5,
+    "url": "https://www.yelp.com/biz/la-r%C3%A9galade-paris-3",
+    "yelpId": "wLgAxIB7111BcWLWh7KpFw"
+  }
+]
