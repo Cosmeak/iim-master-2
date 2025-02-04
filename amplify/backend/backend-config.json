@@ -1,4 +1,40 @@
 {
+  "function": {
+    "scrape": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "Restaurants"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_scrape_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "scrape"
+        }
+      ]
+    },
+    "AMPLIFY_function_scrape_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "scrape"
+        }
+      ]
+    }
+  },
   "storage": {
     "Restaurants": {
       "providerPlugin": "awscloudformation",

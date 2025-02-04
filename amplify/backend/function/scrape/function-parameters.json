@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "storage": {
+      "Restaurants": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "secretNames": []
+}

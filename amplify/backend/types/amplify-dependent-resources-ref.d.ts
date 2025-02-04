@@ -1,4 +1,14 @@
 export type AmplifyDependentResourcesAttributes = {
+  "function": {
+    "scrape": {
+      "Arn": "string",
+      "CloudWatchEventRule": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
   "storage": {
     "Restaurants": {
       "Arn": "string",
