@@ -13,15 +13,37 @@
     },
     "categories": {
       "storage": {
-        "Restaurants": {}
+        "Restaurants": {},
+        "Reviews": {}
       },
       "function": {
         "getRestaurants": {},
         "scrapRestaurantComments": {
           "deploymentBucketName": "amplify-bigdata-dev-af419-deployment",
-          "s3Key": "amplify-builds/scrape-557a7961735558446647-build.zip"
+          "s3Key": "amplify-builds/scrapRestaurantComments-79464549653439657778-build.zip"
         },
-        "predictFeeling": {}
+        "Restaurants": {}
+      }
+    }
+  },
+  "cosmeak": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bigdata-cosmeak-f55dd-authRole",
+      "UnauthRoleArn": "arn:aws:iam::970547338511:role/amplify-bigdata-cosmeak-f55dd-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::970547338511:role/amplify-bigdata-cosmeak-f55dd-authRole",
+      "Region": "eu-west-3",
+      "DeploymentBucketName": "amplify-bigdata-cosmeak-f55dd-deployment",
+      "UnauthRoleName": "amplify-bigdata-cosmeak-f55dd-unauthRole",
+      "StackName": "amplify-bigdata-cosmeak-f55dd",
+      "StackId": "arn:aws:cloudformation:eu-west-3:970547338511:stack/amplify-bigdata-cosmeak-f55dd/b4f4ca40-e3b2-11ef-b581-0a3ddd8eaab3",
+      "AmplifyAppId": "d2flw8klnapeac"
+    },
+    "categories": {
+      "function": {
+        "getRestaurants": {},
+        "predictFeeling": {},
+        "scrapRestaurantComments": {},
+        "Restaurants": {}
       }
     }
   }

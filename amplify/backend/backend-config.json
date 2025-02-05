@@ -1,27 +1,21 @@
 {
   "function": {
-    "predictFeeling": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": ["StreamArn"],
-          "category": "storage",
-          "resourceName": "Restaurants"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "getRestaurants": {
       "build": true,
       "dependsOn": [
         {
-          "attributes": ["Name", "Arn", "StreamArn"],
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
           "category": "storage",
           "resourceName": "Restaurants"
         },
         {
-          "attributes": ["Name"],
+          "attributes": [
+            "Name"
+          ],
           "category": "function",
           "resourceName": "scrapRestaurantComments"
         }
@@ -33,7 +27,11 @@
       "build": true,
       "dependsOn": [
         {
-          "attributes": ["Name", "Arn", "StreamArn"],
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
           "category": "storage",
           "resourceName": "Reviews"
         }
