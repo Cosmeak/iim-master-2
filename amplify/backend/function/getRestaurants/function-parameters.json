@@ -6,8 +6,13 @@
         "read",
         "update"
       ]
+    },
+    "function": {
+      "scrapRestaurantComments": [
+        "create",
+        "read"
+      ]
     }
   },
-  "lambdaLayers": [],
-  "secretNames": []
+  "lambdaLayers": []
 }

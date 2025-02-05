@@ -4,9 +4,7 @@
       "build": true,
       "dependsOn": [
         {
-          "attributes": [
-            "StreamArn"
-          ],
+          "attributes": ["StreamArn"],
           "category": "storage",
           "resourceName": "Restaurants"
         }
@@ -14,17 +12,30 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "scrape": {
+    "getRestaurants": {
       "build": true,
       "dependsOn": [
         {
-          "attributes": [
-            "Name",
-            "Arn",
-            "StreamArn"
-          ],
+          "attributes": ["Name", "Arn", "StreamArn"],
           "category": "storage",
           "resourceName": "Restaurants"
+        },
+        {
+          "attributes": ["Name"],
+          "category": "function",
+          "resourceName": "scrapRestaurantComments"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "scrapRestaurantComments": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": ["Name", "Arn", "StreamArn"],
+          "category": "storage",
+          "resourceName": "Reviews"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -32,19 +43,19 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_scrape_deploymentBucketName": {
+    "AMPLIFY_function_scrapRestaurantComments_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "scrape"
+          "resourceName": "scrapRestaurantComments"
         }
       ]
     },
-    "AMPLIFY_function_scrape_s3Key": {
+    "AMPLIFY_function_scrapRestaurantComments_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "scrape"
+          "resourceName": "scrapRestaurantComments"
         }
       ]
     }

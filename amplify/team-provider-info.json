@@ -16,7 +16,8 @@
         "Restaurants": {}
       },
       "function": {
-        "scrape": {
+        "getRestaurants": {},
+        "scrapRestaurantComments": {
           "deploymentBucketName": "amplify-bigdata-dev-af419-deployment",
           "s3Key": "amplify-builds/scrape-557a7961735558446647-build.zip"
         },
