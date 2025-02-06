@@ -20,7 +20,7 @@
         "getRestaurants": {},
         "scrapRestaurantComments": {
           "deploymentBucketName": "amplify-bigdata-dev-af419-deployment",
-          "s3Key": "amplify-builds/scrapRestaurantComments-79464549653439657778-build.zip"
+          "s3Key": "amplify-builds/scrapRestaurantComments-36783766615578595366-build.zip"
         },
         "Restaurants": {}
       }
