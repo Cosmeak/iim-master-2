@@ -21,7 +21,8 @@
               pythonPackages.python
               pythonPackages.pip
               pythonPackages.venvShellHook
-              pythonPackages.kaggle
+              pythonPackages.datasets
+              pythonPackages.pandas
 
               # Jupyter Notebook needed dependencies
               pkgs.stdenv.cc.cc.lib
