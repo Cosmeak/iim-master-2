@@ -1,0 +1,67 @@
+{
+  "function": {
+    "getRestaurants": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "Restaurants"
+        },
+        {
+          "attributes": [
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "scrapRestaurantComments"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "scrapRestaurantComments": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "Reviews"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_scrapRestaurantComments_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "scrapRestaurantComments"
+        }
+      ]
+    },
+    "AMPLIFY_function_scrapRestaurantComments_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "scrapRestaurantComments"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "Restaurants": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}

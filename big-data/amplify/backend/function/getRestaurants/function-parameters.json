@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "storage": {
+      "Restaurants": [
+        "create",
+        "read",
+        "update"
+      ]
+    },
+    "function": {
+      "scrapRestaurantComments": [
+        "create",
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
